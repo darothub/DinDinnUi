@@ -6,7 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
+import com.darothub.dindinnui.adapter.filterView
+import com.darothub.dindinnui.adapter.productView
+import com.darothub.dindinnui.data.ProductData
 import com.darothub.dindinnui.databinding.FragmentMainBinding
+import com.google.android.material.tabs.TabLayout
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,7 +50,27 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mainFragmentBinding.textTv.text = param2
+//        mainFragmentBinding.textTv.text = param2
+//        val tabLayout:TabLayout = requireActivity().findViewById<View>(R.id.bs).findViewById(R.id.bottom_sheet_tabLayout)
+//        tabLayout.getTabAt(1)?.select()
+        mainFragmentBinding.mainFilterFragRv.withModels {
+            ProductData.listOfFilter.forEach { f->
+                filterView {
+                    id(f.id)
+                    data(f)
+                }
+            }
+        }
+
+        mainFragmentBinding.mainFragRv.withModels {
+            ProductData.listOfObject.forEach {p->
+                productView {
+                    id(p.id)
+                    data(p)
+                }
+            }
+        }
+
     }
     companion object {
         /**
