@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import coil.load
 import coil.transform.RoundedCornersTransformation
@@ -17,7 +18,7 @@ import com.darothub.dindinnui.model.ProductObject
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT, defaultLayout = R.layout.bottom_sheet_recycle_item)
 class ProductView @JvmOverloads constructor(context: Context, attr:AttributeSet?=null, defStyleAttr:Int=0)
-    : ConstraintLayout(context, attr, defStyleAttr) {
+    : CardView(context, attr, defStyleAttr) {
 
     var binding :BottomSheetRecycleItemBinding = BottomSheetRecycleItemBinding.inflate(LayoutInflater.from(context),
         this, true)
@@ -26,6 +27,7 @@ class ProductView @JvmOverloads constructor(context: Context, attr:AttributeSet?
         binding.imageIv.load(dataObject.image){
             transformations(RoundedCornersTransformation(20F, 20F))
         }
+        binding.root.clipToOutline = false
         binding.imageIv.clipToOutline = true
         binding.textHeaderTv.text = dataObject.title
         binding.textBodyTv.text = dataObject.description

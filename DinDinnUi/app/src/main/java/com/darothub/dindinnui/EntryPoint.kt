@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.darothub.dindinnui.adapter.CarouselViewPagerAdapter
 import com.darothub.dindinnui.data.DataList
 import com.darothub.dindinnui.databinding.ActivityEntryPointBinding
+import com.darothub.dindinnui.ui.MainFragment
 
 import com.google.android.material.tabs.TabLayoutMediator
 
