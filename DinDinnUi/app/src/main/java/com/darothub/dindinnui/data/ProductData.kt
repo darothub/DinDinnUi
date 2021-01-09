@@ -44,4 +44,6 @@ object ProductData {
         FilterData(0, "Food"),
         FilterData(1, "Drink")
     )
+
+    val cartItems = arrayListOf<ProductObject>()
 }

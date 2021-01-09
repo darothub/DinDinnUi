@@ -3,19 +3,26 @@ package com.darothub.dindinnui.ui
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import com.darothub.dindinnui.R
 import com.darothub.dindinnui.adapter.filterView
 import com.darothub.dindinnui.adapter.productView
 import com.darothub.dindinnui.data.ProductData
 import com.darothub.dindinnui.databinding.FragmentMainBinding
+import com.darothub.dindinnui.extensions.hide
+import com.darothub.dindinnui.extensions.show
+import com.darothub.dindinnui.model.ProductObject
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -30,6 +37,13 @@ private const val ARG_PARAM2 = "param2"
  */
 class MainFragment : Fragment() {
     // TODO: Rename and change types of parameters
+
+    private val handler by lazy {
+        Handler(Looper.getMainLooper())
+    }
+    val fadeOut by lazy{
+        AnimationUtils.loadAnimation(requireContext(), R.anim.fade_out)
+    }
     private var param1: String? = null
     private var param2: String? = null
     lateinit var mainFragmentBinding:FragmentMainBinding
@@ -68,6 +82,9 @@ class MainFragment : Fragment() {
             }
         }
 
+        val navHostFragment = requireActivity().supportFragmentManager.fragments[0] as NavHostFragment
+        val parent = navHostFragment.childFragmentManager.primaryNavigationFragment as EntryFragment
+
         mainFragmentBinding.mainFragRv.withModels {
             ProductData.listOfObject.forEach {p->
                 productView {
@@ -77,40 +94,49 @@ class MainFragment : Fragment() {
                         view as Button
                         when (motionEvent.action) {
                             MotionEvent.ACTION_DOWN -> {
-                                view.apply {
-                                    background?.colorFilter = PorterDuffColorFilter(
-                                        ContextCompat.getColor(requireContext(),
-                                            R.color.teal_200
-                                        ),
-                                        PorterDuff.Mode.SRC_IN
-                                    )
-                                    text = "Added +1"
-                                }
-                                return@buttonTouchListener true
+                                return@buttonTouchListener pressedEvent(view, R.color.teal_200, getString(R.string.addedplusone))
                             }
                             MotionEvent.ACTION_UP -> {
                                 view.performClick()
-                                view.apply {
-                                    background?.colorFilter = PorterDuffColorFilter(
-                                        ContextCompat.getColor(requireContext(),
-                                            R.color.black
-                                        ),
-                                        PorterDuff.Mode.SRC_IN
-                                    )
-                                    text = p.price
-                                }
-                                return@buttonTouchListener true
+                                return@buttonTouchListener pressedEvent(view, R.color.black, p.price)
                             }
                         }
                         false
                     }
 
+                    buttonClickListener { model, parentView, clickedView, position ->
+                        ProductData.cartItems.add(p)
+                        parent.binding.mainEntryCv.animation = fadeOut
+                        parent.binding.mainEntryCartCountTv.text = "${ProductData.cartItems.size}"
+
+                    }
                 }
             }
         }
 //
 
     }
+
+    private fun pressedEvent(
+        view: Button,
+        color:Int,
+        p: String
+
+    ): Boolean {
+
+        view.apply {
+            background?.colorFilter = PorterDuffColorFilter(
+                ContextCompat.getColor(
+                    requireContext(),
+                    color
+                ),
+                PorterDuff.Mode.SRC_IN
+            )
+            text = p
+        }
+        return true
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of

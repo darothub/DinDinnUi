@@ -34,9 +34,9 @@ private const val ARG_PARAM2 = "param2"
  */
 class EntryFragment : Fragment() {
     lateinit var runnable: Runnable
-//    private val handler by lazy {
-//        Handler(Looper.getMainLooper())
-//    }
+    private val handler by lazy {
+        Handler(Looper.getMainLooper())
+    }
 
 
     lateinit var binding: FragmentEntryBinding
@@ -99,9 +99,9 @@ class EntryFragment : Fragment() {
         TabLayoutMediator(binding.productTablayout, binding.bottomSheetVp2,
             TabLayoutMediator.TabConfigurationStrategy { tab, position ->
                 when (position) {
-                    0 -> tab.text = "Hello $position"
-                    1 -> tab.text = "Hello $position"
-                    2 -> tab.text = "Hello $position"
+                    0 -> tab.text = getString(R.string.pizza_title)
+                    1 -> tab.text = getString(R.string.sushi)
+                    2 -> tab.text = getString(R.string.drinks)
                 }
             }).apply {
             attach()
@@ -112,15 +112,15 @@ class EntryFragment : Fragment() {
     }
 
     private fun startAutoSlider(count: Int) {
-//        runnable = Runnable {
-//            var pos: Int = binding.topViewpager2.currentItem
-//            pos += 1
-//            if (pos >= count) pos = 0
-//            binding.topViewpager2.currentItem = pos
-//            handler.postDelayed(runnable, 3000)
-//
-//        }
-//
-//        handler.postDelayed(runnable, 3000)
+        runnable = Runnable {
+            var pos: Int = binding.topViewpager2.currentItem
+            pos += 1
+            if (pos >= count) pos = 0
+            binding.topViewpager2.currentItem = pos
+            handler.postDelayed(runnable, 3000)
+
+        }
+
+        handler.postDelayed(runnable, 3000)
     }
 }

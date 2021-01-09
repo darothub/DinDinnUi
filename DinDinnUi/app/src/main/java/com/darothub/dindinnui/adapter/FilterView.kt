@@ -27,7 +27,6 @@ class FilterView @JvmOverloads constructor(context: Context, attr:AttributeSet?=
     @ModelProp
     fun setData(filter: FilterData){
         binding.filterItemTextTv.text = filter.name
-
     }
 
 }

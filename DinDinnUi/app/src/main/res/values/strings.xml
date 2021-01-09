@@ -8,4 +8,13 @@
     <string name="order">Order</string>
     <string name="information">Information</string>
     <string name="menu">Menu</string>
+    <string name="delivery_is_free">Delivery is free</string>
+    <string name="value">Value:</string>
+    <string name="pizza">https://assets.nhs.uk/nhsuk-cms/images/A_1117_processed-foods_E0HWJ7.width-320.jpg</string>
+    <string name="burgertwo">https://who-euro.shorthandstories.com/food-and-nutrition-tips-during-self-quarantine/assets/fgaEFup2oH/hamburguer-de-grao-1772x1181.jpeg</string>
+    <string name="burger">https://thumbor.thedailymeal.com/pCbXABggXGC2emooT39wFaM3_M4=/870x565/https://www.thedailymeal.com/sites/default/files/story/PROMO_Junk-food.jpg</string>
+    <string name="sushi">Sushi</string>
+    <string name="pizza_title">Pizza</string>
+    <string name="drinks">Drinks</string>
+    <string name="addedplusone">Added +1</string>
 </resources>
