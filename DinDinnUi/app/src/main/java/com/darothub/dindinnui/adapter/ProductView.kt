@@ -38,4 +38,12 @@ class ProductView @JvmOverloads constructor(context: Context, attr:AttributeSet?
     fun setClickListener(listener: View.OnClickListener?){
         setOnClickListener(listener)
     }
+    @CallbackProp
+    fun  buttonClickListener(listener: View.OnClickListener?){
+        binding.button.setOnClickListener(listener)
+    }
+    @CallbackProp
+    fun  buttonTouchListener(listener: View.OnTouchListener?){
+        binding.button.setOnTouchListener(listener)
+    }
 }

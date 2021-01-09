@@ -12,8 +12,16 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="buttonStyle">@style/ButtonStyle123</item>
     </style>
     <style name="MyCustomTabText" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="ButtonStyle123" parent="Widget.MaterialComponents.Button">
+        <item name="materialThemeOverlay">@style/ButtonThemeOverlay</item>
+    </style>
+    <style name="ButtonThemeOverlay">
+        <item name="colorPrimary">@color/black</item>
     </style>
 </resources>
