@@ -24,9 +24,6 @@ class CartFragment : Fragment() {
     val title by lazy {
         getName()
     }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,12 +48,10 @@ class CartFragment : Fragment() {
                 }
               }
           }
-            val total = cartItems.reduce { acc, productObject ->
-                acc.price.replace("usd", "").toInt() + productObject.price.replace("usd", "")
-                    .toInt()
-                acc
+            val total = cartItems.fold(0){i, productObject->
+                i + productObject.price.replace("usd", "").toInt()
             }
-            binding.totalTv.text = total.price
+            binding.totalTv.text = "${total}usd"
         }
     }
 

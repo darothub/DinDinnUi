@@ -52,6 +52,41 @@ class MainFragment : BaseMvRxFragment() {
     private var param1: String? = null
     private var param2: String? = null
     lateinit var mainFragmentBinding:FragmentMainBinding
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+        Log.i("fragment", param1.toString())
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        mainFragmentBinding = FragmentMainBinding.inflate(layoutInflater, container, false)
+        return mainFragmentBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        mainFragmentBinding.mainFilterFragRv.withModels {
+            ProductData.listOfFilter.forEach { f->
+                filterView {
+                    id(f.id)
+                    data(f)
+
+                }
+            }
+        }
+
+
+    }
     override fun invalidate() = withState(viewModel){state->
         val navHostFragment = requireActivity().supportFragmentManager.fragments[0] as NavHostFragment
         val parent = navHostFragment.childFragmentManager.primaryNavigationFragment as EntryFragment
@@ -84,48 +119,6 @@ class MainFragment : BaseMvRxFragment() {
             }
         }
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-        Log.i("fragment", param1.toString())
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        mainFragmentBinding = FragmentMainBinding.inflate(layoutInflater, container, false)
-        return mainFragmentBinding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-//        mainFragmentBinding.textTv.text = param2
-//        val tabLayout:TabLayout = requireActivity().findViewById<View>(R.id.bs).findViewById(R.id.bottom_sheet_tabLayout)
-//        tabLayout.getTabAt(1)?.select()
-        mainFragmentBinding.mainFilterFragRv.withModels {
-            ProductData.listOfFilter.forEach { f->
-                filterView {
-                    id(f.id)
-                    data(f)
-
-                }
-            }
-        }
-
-
-
-
-//
-
-    }
-
     private fun pressedEvent(
         view: Button,
         color:Int,
