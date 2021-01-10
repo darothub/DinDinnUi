@@ -17,4 +17,5 @@
     <string name="pizza_title">Pizza</string>
     <string name="drinks">Drinks</string>
     <string name="addedplusone">Added +1</string>
+    <string name="no_order">No order history</string>
 </resources>

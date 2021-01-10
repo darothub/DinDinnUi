@@ -9,6 +9,5 @@ object DataList{
                 "Delivery"),
         CarouselData("https://www.babsprojects.com/wp-content/uploads/2013/03/WFW-button2.png", "DinDinn\n" +
                 "Delivery")
-
     )
 }

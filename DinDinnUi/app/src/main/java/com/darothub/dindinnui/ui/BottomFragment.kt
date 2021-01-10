@@ -24,14 +24,13 @@ import com.darothub.dindinnui.adapter.filterView
 import com.darothub.dindinnui.adapter.productView
 import com.darothub.dindinnui.data.CartData
 import com.darothub.dindinnui.data.PizzaData
-import com.darothub.dindinnui.databinding.FragmentMainBinding
+import com.darothub.dindinnui.databinding.FragmentBottomBinding
 import com.darothub.dindinnui.extensions.getName
 import com.darothub.dindinnui.model.ProductObject
+import com.darothub.dindinnui.viewmodel.CartViewModel
 import com.darothub.dindinnui.viewmodel.PizzaViewModel
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val PRODUCT = "product"
 
 /**
@@ -44,6 +43,7 @@ class BottomFragment : BaseMvRxFragment() {
         getName()
     }
     private val viewModel:PizzaViewModel by activityViewModel()
+    private val cartViewModel: CartViewModel by activityViewModel()
     private val handler by lazy {
         Handler(Looper.getMainLooper())
     }
@@ -52,9 +52,10 @@ class BottomFragment : BaseMvRxFragment() {
     }
     private var product: ArrayList<ProductObject>? = null
 
-    lateinit var mainFragmentBinding:FragmentMainBinding
+    lateinit var mainFragmentBinding:FragmentBottomBinding
 
-
+    lateinit var navHostFragment: NavHostFragment
+    lateinit var parent: EntryFragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -68,12 +69,16 @@ class BottomFragment : BaseMvRxFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        mainFragmentBinding = FragmentMainBinding.inflate(layoutInflater, container, false)
+        mainFragmentBinding = FragmentBottomBinding.inflate(layoutInflater, container, false)
         return mainFragmentBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        navHostFragment = requireActivity().supportFragmentManager.fragments[0] as NavHostFragment
+        parent = navHostFragment.childFragmentManager.primaryNavigationFragment as EntryFragment
+
 
         mainFragmentBinding.mainFilterFragRv.withModels {
             PizzaData.listOfFilter.forEach { f->
@@ -87,9 +92,13 @@ class BottomFragment : BaseMvRxFragment() {
 
 
     }
+
+    override fun onResume() {
+        super.onResume()
+        parent.binding.mainEntryCartCountTv.text = "${CartData.cartItems.size}"
+    }
     override fun invalidate() = withState(viewModel){state->
-        val navHostFragment = requireActivity().supportFragmentManager.fragments[0] as NavHostFragment
-        val parent = navHostFragment.childFragmentManager.primaryNavigationFragment as EntryFragment
+
         mainFragmentBinding.mainFragRv.withModels {
             product?.forEach {p->
                 productView {
@@ -109,8 +118,9 @@ class BottomFragment : BaseMvRxFragment() {
                         false
                     }
 
-                    buttonClickListener { model, parentView, clickedView, position ->
-                        CartData.cartItems.add(p)
+                    buttonClickListener { _, _, _, position ->
+                        cartViewModel.addItem(p)
+//                        CartData.cartItems.add(p)
                         parent.binding.mainEntryCv.animation = fadeOut
                         parent.binding.mainEntryCartCountTv.text = "${CartData.cartItems.size}"
 

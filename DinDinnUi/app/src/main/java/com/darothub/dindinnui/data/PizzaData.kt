@@ -4,7 +4,7 @@ import com.darothub.dindinnui.model.FilterData
 import com.darothub.dindinnui.model.ProductObject
 
 object PizzaData {
-    val listOfPizza = arrayListOf<ProductObject>(
+    val listOfPizza = arrayListOf(
         ProductObject(
             0,
             "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-homemade-pizza-horizontal-1542312378.png",

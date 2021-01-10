@@ -49,6 +49,42 @@ class EntryFragment : BaseMvRxFragment() {
     private val pizzaViewModel: PizzaViewModel by activityViewModel()
     private val sushiViewModel: SushiViewModel by activityViewModel()
     private val drinkViewModel: DrinkViewModel by activityViewModel()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+//        changeStatusBarColor(R.color.white)
+        // Inflate the layout for this fragment
+        binding = FragmentEntryBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val adapter = CarouselViewPagerAdapter(DataList.dataList) {
+
+        }
+
+        binding.appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if (verticalOffset < -35) {
+                binding.mainEntryFab.show()
+                binding.mainEntryCv.show()
+            } else {
+                binding.mainEntryFab.hide()
+                binding.mainEntryCv.hide()
+            }
+        })
+        binding.topViewpager2.adapter = adapter
+        binding.circleIndicator.setViewPager(binding.topViewpager2)
+        startAutoSlider(3);
+
+        binding.mainEntryFab.setOnClickListener {
+            goto(R.id.transactionFragment)
+        }
+    }
+
     override fun invalidate() {
         val fragList by lazy {
             arrayListOf<Fragment>()
@@ -87,40 +123,6 @@ class EntryFragment : BaseMvRxFragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-//        changeStatusBarColor(R.color.white)
-        // Inflate the layout for this fragment
-        binding = FragmentEntryBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val adapter = CarouselViewPagerAdapter(DataList.dataList) {
-
-        }
-
-        binding.appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-            if (verticalOffset < -35) {
-                binding.mainEntryFab.show()
-                binding.mainEntryCv.show()
-            } else {
-                binding.mainEntryFab.hide()
-                binding.mainEntryCv.hide()
-            }
-        })
-        binding.topViewpager2.adapter = adapter
-        binding.circleIndicator.setViewPager(binding.topViewpager2)
-        startAutoSlider(3);
-
-        binding.mainEntryFab.setOnClickListener {
-            goto(R.id.transactionFragment)
-        }
-    }
 
     private fun startAutoSlider(count: Int) {
         runnable = Runnable {

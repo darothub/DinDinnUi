@@ -1,35 +1,43 @@
 package com.darothub.dindinnui.viewmodel
 
 import android.annotation.SuppressLint
+import android.util.Log
 import com.airbnb.mvrx.*
 import com.darothub.dindinnui.app.DinDinnApp
+import com.darothub.dindinnui.model.ProductObject
 import com.darothub.dindinnui.repository.Repository
 import com.darothub.dindinnui.state.ProductState
 import io.reactivex.schedulers.Schedulers.io
 
 
 @SuppressLint("CheckResult")
-class PizzaViewModel(
+class CartViewModel(
     state:ProductState,
-    productNetworkService: Repository
+    private val repository: Repository
 ): BaseMvRxViewModel<ProductState>(state, debugMode = true){
 
     init {
-        setState {
-            copy(products = Loading())
-        }
-        productNetworkService.getPizzas()
+        repository.getCart()
             .subscribeOn(io())
             .execute { copy(products = it) }
     }
 
-    companion object : MvRxViewModelFactory<PizzaViewModel, ProductState>{
+    fun removeItem(id:Int){
+        repository.removeItemFromCart(id)
+
+    }
+    fun addItem(productObject: ProductObject){
+        repository.addToCart(productObject)
+
+    }
+
+    companion object : MvRxViewModelFactory<CartViewModel, ProductState>{
         override fun create(
             viewModelContext: ViewModelContext,
             state: ProductState
-        ): PizzaViewModel? {
+        ): CartViewModel? {
             val productNetworkService = viewModelContext.app<DinDinnApp>().pizzaService
-            return PizzaViewModel(state, productNetworkService)
+            return CartViewModel(state, productNetworkService)
         }
 
     }

@@ -7,9 +7,7 @@ import com.darothub.dindinnui.model.ProductObject
 
 data class ProductState(
     val products: Async<List<ProductObject>> = Uninitialized,
-    val productId:Long?= null
+    val productId:Long?= null,
 ) : MvRxState{
-
-    val productPurchased = product(productId)
-    fun product(productId:Long?)=products()?.firstOrNull{it.id == productId}
+    fun addProduct(productObject: ProductObject) = products()?.toMutableList()?.add(productObject)
 }

@@ -52,7 +52,7 @@
             android:id="@+id/total_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="166Usd"
+            android:text="0Usd"
             app:layout_constraintTop_toBottomOf="@id/delivery_free_tv"
             app:layout_constraintStart_toEndOf="@id/value_tv"
             android:textStyle="bold"

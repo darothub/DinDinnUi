@@ -1,16 +1,20 @@
 package com.darothub.dindinnui.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import androidx.fragment.app.Fragment
 import com.darothub.dindinnui.R
 import com.darothub.dindinnui.ViewPagerAdapter
 import com.darothub.dindinnui.databinding.FragmentTransactionBinding
 import com.darothub.dindinnui.extensions.onBackDispatcher
 import com.darothub.dindinnui.extensions.pop
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,12 +27,11 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class TransactionFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-
-
-
 
     lateinit var binding: FragmentTransactionBinding
+    private val fadeOut: Animation by lazy{
+        AnimationUtils.loadAnimation(requireContext(), R.anim.fade_out)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -49,7 +52,7 @@ class TransactionFragment : Fragment() {
             pop()
         }
         val fragList by lazy {
-            arrayListOf<Fragment>(
+            arrayListOf(
                 CartFragment(),
                 OrderFragment(),
                 InformationFragment()
@@ -76,6 +79,12 @@ class TransactionFragment : Fragment() {
 
         binding.transactionToolbar.reusableAppbarToolbar.setNavigationOnClickListener {
             pop()
+        }
+        binding.transactionFab.setOnClickListener {
+            binding.transactionFab.animation = fadeOut
+            val snackbar = Snackbar
+                .make(binding.root, "Order is currently not available", Snackbar.LENGTH_LONG)
+            snackbar.show()
         }
     }
 
