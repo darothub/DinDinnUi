@@ -10,7 +10,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.darothub.dindinnui.adapter.CarouselViewPagerAdapter
 import com.darothub.dindinnui.data.DataList
 import com.darothub.dindinnui.databinding.ActivityEntryPointBinding
-import com.darothub.dindinnui.ui.MainFragment
+import com.darothub.dindinnui.ui.BottomFragment
 
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -20,19 +20,19 @@ class EntryPoint : AppCompatActivity() {
     val handler by lazy {
         Handler(Looper.getMainLooper())
     }
-    private val fragList by lazy {
-        arrayListOf<Fragment>(
-            MainFragment.newInstance("Hello", "Fragment $0"),
-            MainFragment.newInstance("Hello", "Fragment $1"),
-            MainFragment.newInstance("Hello", "Fragment $2")
-        )
-    }
+//    private val fragList by lazy {
+////        arrayListOf<Fragment>(
+////            BottomFragment.newInstance("Hello", "Fragment $0"),
+////            BottomFragment.newInstance("Hello", "Fragment $1"),
+////            BottomFragment.newInstance("Hello", "Fragment $2")
+////        )
+//    }
 
-    private val bottomSheetViewPagerAdapter by lazy {
-        ViewPagerAdapter(this, 3) {
-            fragList[it]
-        }
-    }
+//    private val bottomSheetViewPagerAdapter by lazy {
+//        ViewPagerAdapter(this, 3) {
+//            fragList[it]
+//        }
+//    }
 
     private val viewPagerScrollListener by lazy {
         object :ViewPager2.OnPageChangeCallback(){
@@ -58,17 +58,17 @@ class EntryPoint : AppCompatActivity() {
         binding.topViewpager2.adapter = adapter
         binding.circleIndicator.setViewPager(binding.topViewpager2)
 
-        binding.bs.bottomSheetVp2.adapter = bottomSheetViewPagerAdapter
-        TabLayoutMediator(binding.bs.bottomSheetTabLayout, binding.bs.bottomSheetVp2,
-            TabLayoutMediator.TabConfigurationStrategy { tab, position ->
-                when (position) {
-                    0 -> tab.text = "Hello $position"
-                    1 -> tab.text = "Hello $position"
-                    2 -> tab.text = "Hello $position"
-                }
-            }).apply {
-            attach()
-        }
+//        binding.bs.bottomSheetVp2.adapter = bottomSheetViewPagerAdapter
+//        TabLayoutMediator(binding.bs.bottomSheetTabLayout, binding.bs.bottomSheetVp2,
+//            TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+//                when (position) {
+//                    0 -> tab.text = "Hello $position"
+//                    1 -> tab.text = "Hello $position"
+//                    2 -> tab.text = "Hello $position"
+//                }
+//            }).apply {
+//            attach()
+//        }
 
         binding.bs.bottomSheetVp2.registerOnPageChangeCallback(viewPagerScrollListener)
 

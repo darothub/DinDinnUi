@@ -3,12 +3,12 @@ package com.darothub.dindinnui.data
 import com.darothub.dindinnui.model.FilterData
 import com.darothub.dindinnui.model.ProductObject
 
-object ProductData {
-    val listOfObject = arrayListOf<ProductObject>(
+object SushiData {
+    val listOfSushi = arrayListOf<ProductObject>(
         ProductObject(
             0,
             "https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png",
-            "First",
+            "The egoist",
             "Hello Hope you like what you see",
             "25cm 30gram",
             "45usd"
@@ -16,7 +16,7 @@ object ProductData {
         ProductObject(
             1,
             "https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png",
-            "First",
+            "California",
             "Hello Hope you like what you see",
             "25cm 30gram",
             "45usd"
@@ -24,7 +24,7 @@ object ProductData {
         ProductObject(
             2,
             "https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png",
-            "First",
+            "Nigeria",
             "Hello Hope you like what you see",
             "25cm 30gram",
             "45usd"
@@ -32,7 +32,7 @@ object ProductData {
         ProductObject(
             3,
             "https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png",
-            "First",
+            "Africaroni",
             "Hello Hope you like what you see",
             "25cm 30gram",
             "45usd"
@@ -45,5 +45,4 @@ object ProductData {
         FilterData(1, "Drink")
     )
 
-    val cartItems = arrayListOf<ProductObject>()
 }

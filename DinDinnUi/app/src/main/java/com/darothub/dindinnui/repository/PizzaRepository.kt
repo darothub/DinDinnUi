@@ -1,19 +1,41 @@
 package com.darothub.dindinnui.repository
 
-import com.darothub.dindinnui.data.ProductData
+import com.darothub.dindinnui.data.DrinkData
+import com.darothub.dindinnui.data.PizzaData
+import com.darothub.dindinnui.data.SushiData
 import com.darothub.dindinnui.model.ProductObject
 import io.reactivex.Observable
+import io.reactivex.Single
 
 
-class PizzaRepository : ProductNetworkService {
+class PizzaRepository : ProductNetworkService, SushiServices, DrinkServices {
 
-    override fun getPizzas(): Observable<List<ProductObject>> = Observable.fromCallable {
+    override fun getPizzas(): Single<List<ProductObject>> = Single.fromCallable {
         Thread.sleep(2000)
-        ProductData.listOfObject
+        PizzaData.listOfPizza
     }
 
-    override fun pizza(id: Long): Observable<ProductObject> = Observable.fromCallable {
+    override fun pizza(id: Long): Single<ProductObject> = Single.fromCallable {
         Thread.sleep(2000)
-        ProductData.listOfObject[id.toInt()]
+        PizzaData.listOfPizza[id.toInt()]
+    }
+    override fun getSushi(): Single<List<ProductObject>> = Single.fromCallable {
+        Thread.sleep(2000)
+        SushiData.listOfSushi
+    }
+
+    override fun sushi(id: Long): Single<ProductObject> = Single.fromCallable {
+        Thread.sleep(2000)
+        SushiData.listOfSushi[id.toInt()]
+    }
+
+    override fun getDrinks(): Single<List<ProductObject>> = Single.fromCallable {
+        Thread.sleep(2000)
+        DrinkData.listOfDrinks
+    }
+
+    override fun drink(id: Long): Single<ProductObject> = Single.fromCallable {
+        Thread.sleep(2000)
+        DrinkData.listOfDrinks[id.toInt()]
     }
 }

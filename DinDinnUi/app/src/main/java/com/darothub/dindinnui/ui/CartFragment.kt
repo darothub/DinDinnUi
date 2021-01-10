@@ -6,11 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.darothub.dindinnui.R
 import com.darothub.dindinnui.adapter.cartListView
-import com.darothub.dindinnui.data.ProductData
+import com.darothub.dindinnui.data.CartData
+import com.darothub.dindinnui.data.PizzaData
 import com.darothub.dindinnui.databinding.FragmentCartBinding
-import com.darothub.dindinnui.databinding.FragmentEntryBinding
 import com.darothub.dindinnui.extensions.getName
 
 /**
@@ -19,9 +18,9 @@ import com.darothub.dindinnui.extensions.getName
  * create an instance of this fragment.
  */
 class CartFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+
     lateinit var binding: FragmentCartBinding
-    val title by lazy {
+    private val title by lazy {
         getName()
     }
 
@@ -37,7 +36,7 @@ class CartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val cartItems = ProductData.cartItems
+        val cartItems = CartData.cartItems
         if(cartItems.isNotEmpty()){
             Log.i(title, "items $cartItems")
           binding.cartFragRv.withModels {
