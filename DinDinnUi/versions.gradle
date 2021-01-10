@@ -1,6 +1,8 @@
 ext.versions = [
 
         navigation_fragment           : '2.3.1',
-        epoxy                         : "4.1.0"
+        epoxy                         : "4.1.0",
+        mvrx                          : "1.4.0",
+        rxjava                        : "3.0.0"
 
 ]

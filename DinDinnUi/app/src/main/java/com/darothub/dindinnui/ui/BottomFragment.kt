@@ -14,7 +14,11 @@ import android.view.animation.AnimationUtils
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
+import com.airbnb.mvrx.BaseMvRxFragment
+import com.airbnb.mvrx.activityViewModel
+import com.airbnb.mvrx.withState
 import com.darothub.dindinnui.R
 import com.darothub.dindinnui.adapter.filterView
 import com.darothub.dindinnui.adapter.productView
@@ -23,6 +27,7 @@ import com.darothub.dindinnui.databinding.FragmentMainBinding
 import com.darothub.dindinnui.extensions.hide
 import com.darothub.dindinnui.extensions.show
 import com.darothub.dindinnui.model.ProductObject
+import com.darothub.dindinnui.viewmodel.ProductViewModel
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -35,9 +40,9 @@ private const val ARG_PARAM2 = "param2"
  * Use the [MainFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MainFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+class MainFragment : BaseMvRxFragment() {
 
+    val viewModel:ProductViewModel by activityViewModel()
     private val handler by lazy {
         Handler(Looper.getMainLooper())
     }
@@ -47,6 +52,38 @@ class MainFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     lateinit var mainFragmentBinding:FragmentMainBinding
+    override fun invalidate() = withState(viewModel){state->
+        val navHostFragment = requireActivity().supportFragmentManager.fragments[0] as NavHostFragment
+        val parent = navHostFragment.childFragmentManager.primaryNavigationFragment as EntryFragment
+        mainFragmentBinding.mainFragRv.withModels {
+            state.products()?.forEach {p->
+                productView {
+                    id(p.id)
+                    data(p)
+                    buttonTouchListener{ view, motionEvent ->
+                        view as Button
+                        when (motionEvent.action) {
+                            MotionEvent.ACTION_DOWN -> {
+                                return@buttonTouchListener pressedEvent(view, R.color.teal_200, getString(R.string.addedplusone))
+                            }
+                            MotionEvent.ACTION_UP -> {
+                                view.performClick()
+                                return@buttonTouchListener pressedEvent(view, R.color.black, p.price)
+                            }
+                        }
+                        false
+                    }
+
+                    buttonClickListener { model, parentView, clickedView, position ->
+                        ProductData.cartItems.add(p)
+                        parent.binding.mainEntryCv.animation = fadeOut
+                        parent.binding.mainEntryCartCountTv.text = "${ProductData.cartItems.size}"
+
+                    }
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,37 +119,9 @@ class MainFragment : Fragment() {
             }
         }
 
-        val navHostFragment = requireActivity().supportFragmentManager.fragments[0] as NavHostFragment
-        val parent = navHostFragment.childFragmentManager.primaryNavigationFragment as EntryFragment
 
-        mainFragmentBinding.mainFragRv.withModels {
-            ProductData.listOfObject.forEach {p->
-                productView {
-                    id(p.id)
-                    data(p)
-                    buttonTouchListener{ view, motionEvent ->
-                        view as Button
-                        when (motionEvent.action) {
-                            MotionEvent.ACTION_DOWN -> {
-                                return@buttonTouchListener pressedEvent(view, R.color.teal_200, getString(R.string.addedplusone))
-                            }
-                            MotionEvent.ACTION_UP -> {
-                                view.performClick()
-                                return@buttonTouchListener pressedEvent(view, R.color.black, p.price)
-                            }
-                        }
-                        false
-                    }
 
-                    buttonClickListener { model, parentView, clickedView, position ->
-                        ProductData.cartItems.add(p)
-                        parent.binding.mainEntryCv.animation = fadeOut
-                        parent.binding.mainEntryCartCountTv.text = "${ProductData.cartItems.size}"
 
-                    }
-                }
-            }
-        }
 //
 
     }

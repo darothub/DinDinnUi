@@ -53,7 +53,9 @@ dependencies {
     //Coil
     implementation("io.coil-kt:coil:1.0.0-rc3")
 
-
+    implementation "com.airbnb.android:mvrx:$versions.mvrx"
     implementation "com.airbnb.android:epoxy:$versions.epoxy"
     kapt "com.airbnb.android:epoxy-processor:$versions.epoxy"
+
+
 }

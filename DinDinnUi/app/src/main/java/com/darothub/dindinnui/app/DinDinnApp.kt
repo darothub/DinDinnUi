@@ -1,8 +1,10 @@
-package com.darothub.dindinnui.di
+package com.darothub.dindinnui.app
 
 import android.app.Application
 import com.darothub.dindinnui.repository.PizzaRepository
 
-class DinDinnApplication : Application(){
-    val networkService = PizzaRepository()
+class DinDinnApp : Application(){
+    val networkService by lazy {
+       PizzaRepository()
+    }
 }
