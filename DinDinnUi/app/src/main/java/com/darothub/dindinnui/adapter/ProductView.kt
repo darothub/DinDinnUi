@@ -25,10 +25,10 @@ class ProductView @JvmOverloads constructor(context: Context, attr:AttributeSet?
     @ModelProp
     fun setData(dataObject: ProductObject){
         binding.imageIv.load(dataObject.image){
+            crossfade(true)
+            placeholder(R.drawable.ic_baseline_fastfood_24)
             transformations(RoundedCornersTransformation(20F, 20F))
         }
-        binding.root.clipToOutline = false
-        binding.imageIv.clipToOutline = true
         binding.textHeaderTv.text = dataObject.title
         binding.textBodyTv.text = dataObject.description
         binding.textGramTv.text = dataObject.weight

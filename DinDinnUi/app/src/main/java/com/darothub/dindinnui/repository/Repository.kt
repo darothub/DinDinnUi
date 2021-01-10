@@ -8,7 +8,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 
 
-class PizzaRepository : ProductNetworkService, SushiServices, DrinkServices {
+class Repository : ProductNetworkService, SushiServices, DrinkServices {
 
     override fun getPizzas(): Single<List<ProductObject>> = Single.fromCallable {
         Thread.sleep(2000)

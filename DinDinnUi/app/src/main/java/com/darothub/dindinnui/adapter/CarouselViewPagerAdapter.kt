@@ -42,7 +42,9 @@ class CarouselViewPagerAdapter (var list: List<CarouselData>, var listener:(Caro
     class CarouselViewHolder(val binding: CarouselItemLayoutBinding):RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: CarouselData, listener: (CarouselData) -> Unit){
-            binding.carouselItemIv.load(data.image)
+            binding.carouselItemIv.load(data.image){
+                placeholder(R.drawable.ic_baseline_fastfood_24)
+            }
             binding.carouselItemTv.text = data.title
 
             binding.root.setOnClickListener {

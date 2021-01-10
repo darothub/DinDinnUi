@@ -4,9 +4,11 @@ data class CarouselData(val image:String, val title:String)
 
 object DataList{
     val dataList = arrayListOf<CarouselData>(
-        CarouselData("https://www.gizbot.com/images/2020-09/realme-7_159921061900.jpg", "Image 1"),
-        CarouselData("https://tech2tech.com.cy/wp-content/uploads/realme-7-1.jpg", "Image 2"),
-        CarouselData("https://detspec.com/wp-content/uploads/2020/12/realme-7.jpg", "Image 3")
+        CarouselData("https://www.destinationunknown.com.au/sunshinecoast/wp-content/uploads/sites/11/2019/12/cheap-eats-monday-1.jpg", "DinDinn\nDelivery"),
+        CarouselData("https://i.pinimg.com/originals/27/49/f3/2749f38a63814125580fcacb711832a3.jpg", "DinDinn\n" +
+                "Delivery"),
+        CarouselData("https://www.babsprojects.com/wp-content/uploads/2013/03/WFW-button2.png", "DinDinn\n" +
+                "Delivery")
 
     )
 }

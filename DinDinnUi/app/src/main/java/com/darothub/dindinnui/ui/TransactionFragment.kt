@@ -64,14 +64,13 @@ class TransactionFragment : Fragment() {
 
         binding.transactionToolbar.reusableAppbarToolbar.title = getString(R.string.menu)
         binding.transactionVp2.adapter = viewPagerAdapter
-        TabLayoutMediator(binding.transactionTablayout, binding.transactionVp2,
-            TabLayoutMediator.TabConfigurationStrategy { tab, position ->
-                when (position) {
-                    0 -> tab.text = getString(R.string.cart)
-                    1 -> tab.text = getString(R.string.order)
-                    2 -> tab.text = getString(R.string.information)
-                }
-            }).apply {
+        TabLayoutMediator(binding.transactionTablayout, binding.transactionVp2) { tab, position ->
+            when (position) {
+                0 -> tab.text = getString(R.string.cart)
+                1 -> tab.text = getString(R.string.order)
+                2 -> tab.text = getString(R.string.information)
+            }
+        }.apply {
             attach()
         }
 

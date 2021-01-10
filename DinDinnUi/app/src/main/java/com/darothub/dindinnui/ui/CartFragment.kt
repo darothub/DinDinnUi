@@ -44,6 +44,14 @@ class CartFragment : Fragment() {
                 cartListView {
                     id(ci.id)
                     data(ci)
+                    onDeleteListener { model, parentView, clickedView, position ->
+                        cartItems.removeAt(position)
+                        val total = cartItems.fold(0){i, productObject->
+                            i + productObject.price.replace("usd", "").toInt()
+                        }
+                        binding.totalTv.text = "${total}usd"
+                        requestModelBuild()
+                    }
                 }
               }
           }

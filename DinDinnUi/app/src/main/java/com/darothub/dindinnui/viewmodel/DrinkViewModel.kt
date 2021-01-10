@@ -3,8 +3,7 @@ package com.darothub.dindinnui.viewmodel
 import android.annotation.SuppressLint
 import com.airbnb.mvrx.*
 import com.darothub.dindinnui.app.DinDinnApp
-import com.darothub.dindinnui.repository.PizzaRepository
-import com.darothub.dindinnui.repository.ProductNetworkService
+import com.darothub.dindinnui.repository.Repository
 import com.darothub.dindinnui.state.ProductState
 import io.reactivex.schedulers.Schedulers.io
 
@@ -12,7 +11,7 @@ import io.reactivex.schedulers.Schedulers.io
 @SuppressLint("CheckResult")
 class DrinkViewModel(
     state:ProductState,
-    productNetworkService: PizzaRepository
+    productNetworkService: Repository
 ): BaseMvRxViewModel<ProductState>(state, debugMode = true){
 
     init {

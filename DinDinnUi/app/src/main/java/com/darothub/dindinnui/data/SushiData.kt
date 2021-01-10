@@ -7,7 +7,7 @@ object SushiData {
     val listOfSushi = arrayListOf<ProductObject>(
         ProductObject(
             0,
-            "https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png",
+            "https://www.kikkoman.com/homecook/search/recipe/img/00005163.jpg",
             "The egoist",
             "Hello Hope you like what you see",
             "25cm 30gram",
@@ -15,7 +15,7 @@ object SushiData {
         ),
         ProductObject(
             1,
-            "https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png",
+            "https://www.tripsavvy.com/thmb/CP_SGOYRfjCZLjVQjeAsvsEylSg=/5096x2866/smart/filters:no_upscale()/GettyImages-126553802-56a541cb3df78cf772875a68.jpg",
             "California",
             "Hello Hope you like what you see",
             "25cm 30gram",
@@ -23,7 +23,7 @@ object SushiData {
         ),
         ProductObject(
             2,
-            "https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png",
+            "https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/slideshows/best_and_worst_sushi_slideshow/1800x1200_best_and_worst_sushi_slideshow.jpg",
             "Nigeria",
             "Hello Hope you like what you see",
             "25cm 30gram",
@@ -31,7 +31,7 @@ object SushiData {
         ),
         ProductObject(
             3,
-            "https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png",
+            "https://www.nippon.com/en/ncommon/contents/japan-data/169591/169591.jpg",
             "Africaroni",
             "Hello Hope you like what you see",
             "25cm 30gram",

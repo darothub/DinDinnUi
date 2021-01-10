@@ -11,7 +11,6 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.darothub.dindinnui.ViewPagerAdapter
 import com.darothub.dindinnui.adapter.CarouselViewPagerAdapter
 import com.darothub.dindinnui.data.DataList
 import com.darothub.dindinnui.databinding.ActivityMainEntryBinding
@@ -28,7 +27,7 @@ class MainEntry : AppCompatActivity() {
         window.apply {
             clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             statusBarColor = Color.TRANSPARENT
         }
         binding = ActivityMainEntryBinding.inflate(layoutInflater)
