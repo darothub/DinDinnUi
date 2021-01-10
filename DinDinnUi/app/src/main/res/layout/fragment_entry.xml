@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
     android:background="@color/white"
     tools:context=".ui.EntryFragment">
 
@@ -52,7 +53,8 @@
                     android:background="@drawable/bottom_sheet_background"
                     app:contentInsetStartWithNavigation="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-
+                    app:tabMode="scrollable"
+                    app:tabSelectedTextColor="@color/darkGrey"
                     app:tabIndicatorColor="@color/transparent">
 
                 </com.google.android.material.tabs.TabLayout>

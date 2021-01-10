@@ -16,6 +16,8 @@
         <item name="android:actionBarStyle">@style/MyActionBar</item>
         <!-- Customize your theme here. -->
         <item name="buttonStyle">@style/ButtonStyle123</item>
+<!--        <item name="android:windowFullscreen">true</item>-->
+
     </style>
 
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
