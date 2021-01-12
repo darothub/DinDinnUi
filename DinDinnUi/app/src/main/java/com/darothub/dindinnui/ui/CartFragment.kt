@@ -10,14 +10,10 @@ import com.airbnb.mvrx.BaseMvRxFragment
 import com.airbnb.mvrx.activityViewModel
 import com.airbnb.mvrx.withState
 import com.darothub.dindinnui.adapter.cartListView
-import com.darothub.dindinnui.data.CartData
-import com.darothub.dindinnui.data.CartData.cartItems
-import com.darothub.dindinnui.data.PizzaData
 import com.darothub.dindinnui.databinding.FragmentCartBinding
 import com.darothub.dindinnui.extensions.getName
 import com.darothub.dindinnui.model.ProductObject
 import com.darothub.dindinnui.viewmodel.CartViewModel
-import com.darothub.dindinnui.viewmodel.DrinkViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -42,22 +38,19 @@ class CartFragment : BaseMvRxFragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-    }
-
     override fun invalidate() {
+
         withState(cartViewModel){state->
             binding.cartFragRv.withModels {
-                state.addProduct.forEach { ci->
+                state.cartItems.forEach { ci->
                     cartListView {
                         id(ci.id)
                         data(ci)
+
+                        //Listener for removing items in the cart
                         onDeleteListener { _, _, _, position ->
                             cartViewModel.remove(position)
-                            calculateAndUpdate(state.addProduct)
+                            calculateAndUpdate(state.cartItems)
                             requestModelBuild()
                         }
                     }
@@ -65,19 +58,11 @@ class CartFragment : BaseMvRxFragment() {
 
 
             }
-            if(state.addProduct.isNotEmpty()){
-                Log.i(title, "items ${state.addProduct}")
-
-                calculateAndUpdate(state.addProduct)
+            if(state.cartItems.isNotEmpty()){
+                calculateAndUpdate(state.cartItems)
             }
 
         }
-//        val cartItems = CartData.cartItems
-//        if(cartItems.isNotEmpty()){
-//            Log.i(title, "items $cartItems")
-//
-//            calculateAndUpdate(cartItems)
-//        }
     }
 
     private fun calculateAndUpdate(cartItems: List<ProductObject>) {

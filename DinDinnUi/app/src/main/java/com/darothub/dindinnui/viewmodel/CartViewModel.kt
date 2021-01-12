@@ -1,15 +1,11 @@
 package com.darothub.dindinnui.viewmodel
 
 import android.annotation.SuppressLint
-import android.util.Log
 import com.airbnb.mvrx.*
 import com.darothub.dindinnui.app.DinDinnApp
-import com.darothub.dindinnui.data.CartData
 import com.darothub.dindinnui.model.ProductObject
 import com.darothub.dindinnui.repository.Repository
 import com.darothub.dindinnui.state.ProductState
-import io.reactivex.Scheduler
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.schedulers.Schedulers.io
 
 
@@ -30,7 +26,7 @@ class CartViewModel(
 
     }
     fun remove(id: Int){
-        setState { copy(addProduct = addProduct.dropLast(1)) }
+        setState { copy(cartItems = cartItems.dropLast(1)) }
     }
     fun addItem(productObject: ProductObject){
         repository.addToCart(productObject)
@@ -38,7 +34,7 @@ class CartViewModel(
     }
 
     fun adding(productObject: ProductObject){
-        setState { copy(addProduct = arrayListOf(productObject) + addProduct) }
+        setState { copy(cartItems = arrayListOf(productObject) + cartItems) }
     }
 
     companion object : MvRxViewModelFactory<CartViewModel, ProductState>{

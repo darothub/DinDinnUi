@@ -47,10 +47,13 @@ class TransactionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        changeStatusBarColor(R.color.white)
+
+        //On back pressed
         onBackDispatcher{
             pop()
         }
+
+        //Fragment list for viewpager
         val fragList by lazy {
             arrayListOf(
                 CartFragment(),
@@ -66,7 +69,9 @@ class TransactionFragment : Fragment() {
         }
 
         binding.transactionToolbar.reusableAppbarToolbar.title = getString(R.string.menu)
+
         binding.transactionVp2.adapter = viewPagerAdapter
+
         TabLayoutMediator(binding.transactionTablayout, binding.transactionVp2) { tab, position ->
             when (position) {
                 0 -> tab.text = getString(R.string.cart)
@@ -77,9 +82,11 @@ class TransactionFragment : Fragment() {
             attach()
         }
 
+        //On back arrow click listener
         binding.transactionToolbar.reusableAppbarToolbar.setNavigationOnClickListener {
             pop()
         }
+
         binding.transactionFab.setOnClickListener {
             binding.transactionFab.animation = fadeOut
             val snackbar = Snackbar

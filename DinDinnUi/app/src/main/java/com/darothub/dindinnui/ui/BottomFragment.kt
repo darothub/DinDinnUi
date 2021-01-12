@@ -22,7 +22,6 @@ import com.airbnb.mvrx.withState
 import com.darothub.dindinnui.R
 import com.darothub.dindinnui.adapter.filterView
 import com.darothub.dindinnui.adapter.productView
-import com.darothub.dindinnui.data.CartData
 import com.darothub.dindinnui.data.PizzaData
 import com.darothub.dindinnui.databinding.FragmentBottomBinding
 import com.darothub.dindinnui.extensions.getName
@@ -43,30 +42,23 @@ class BottomFragment : BaseMvRxFragment() {
     private val title by lazy {
         getName()
     }
-    private val viewModel:PizzaViewModel by activityViewModel()
+
     private val cartViewModel: CartViewModel by activityViewModel()
-    private val handler by lazy {
-        Handler(Looper.getMainLooper())
-    }
     private val fadeOut: Animation by lazy{
         AnimationUtils.loadAnimation(requireContext(), R.anim.fade_out)
     }
     private var product: ArrayList<ProductObject>? = null
 
     lateinit var mainFragmentBinding:FragmentBottomBinding
-
     lateinit var navHostFragment: NavHostFragment
     lateinit var parent: EntryFragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.i(title, "onCreate")
+        //Retrieving product
         arguments?.let {
             product = it.getParcelableArrayList(PRODUCT)
-        }
-
-        cartViewModel.selectSubscribe(ProductState::addProduct){list->
-            Log.i(title, "PRODUCT $list size ${list.size}")
-            parent.binding.mainEntryCartCountTv.text = "${list.size}"
         }
 
     }
@@ -87,6 +79,7 @@ class BottomFragment : BaseMvRxFragment() {
         parent = navHostFragment.childFragmentManager.primaryNavigationFragment as EntryFragment
 
 
+        //Infating filter recycler view
         mainFragmentBinding.mainFilterFragRv.withModels {
             PizzaData.listOfFilter.forEach { f->
                 filterView {
@@ -95,7 +88,7 @@ class BottomFragment : BaseMvRxFragment() {
                 }
             }
         }
-
+        //Infating product recycler view
         mainFragmentBinding.mainFragRv.withModels {
             product?.forEach {p->
                 productView {
@@ -114,7 +107,7 @@ class BottomFragment : BaseMvRxFragment() {
                         }
                         false
                     }
-
+                    //Listener for adding item to cart
                     buttonClickListener { _, _, _, position ->
                         cartViewModel.adding(p)
                     }
@@ -125,15 +118,10 @@ class BottomFragment : BaseMvRxFragment() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.i(title, "onResume")
-    }
 
     override fun invalidate() = withState(cartViewModel){state->
-        Log.i(title, "invalidate")
         parent.binding.mainEntryCv.animation = fadeOut
-        parent.binding.mainEntryCartCountTv.text = "${state.addProduct.size}"
+        parent.binding.mainEntryCartCountTv.text = "${state.cartItems.size}"
     }
     private fun pressedEvent(
         view: Button,

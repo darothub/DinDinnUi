@@ -73,6 +73,7 @@ class EntryFragment : BaseMvRxFragment() {
 
         }
 
+        //Capturing scroll offset value
         binding.appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (verticalOffset < -35) {
                 binding.mainEntryFab.show()
@@ -82,12 +83,21 @@ class EntryFragment : BaseMvRxFragment() {
                 binding.mainEntryCv.hide()
             }
         })
+        //Setting carousel viewpager
         binding.topViewpager2.adapter = adapter
+        //Setting circle indicator for carousel viewpager
         binding.circleIndicator.setViewPager(binding.topViewpager2)
+        //Auto slide
         startAutoSlider(3);
 
         binding.mainEntryFab.setOnClickListener {
             goto(R.id.transactionFragment)
+        }
+
+        //Updating cart count state
+        withState(cartViewModel){state->
+            Log.i(title, "addProduct size ${state.cartItems.size}")
+            binding.mainEntryCartCountTv.text = "${state.cartItems.size}"
         }
     }
 
@@ -96,20 +106,23 @@ class EntryFragment : BaseMvRxFragment() {
             arrayListOf<Fragment>()
         }
 
+        //Add pizza to data list and create a new instance of fragment
         addDataToList(pizzaViewModel, fragList)
+        //Add sushi to data list and create a new instance of fragment
         addDataToList(sushiViewModel, fragList)
+        //Add drink to data list and create a new instance of fragment
         addDataToList(drinkViewModel, fragList)
-        withState(cartViewModel){state->
-            Log.i(title, "addProduct size ${state.addProduct.size}")
-            binding.mainEntryCartCountTv.text = "${state.addProduct.size}"
-        }
 
+
+        //Bottom view pager adapter
         val bottomSheetViewPagerAdapter by lazy {
             val size = fragList.size
             ViewPagerAdapter(requireActivity(), size) {
                 fragList[it]
             }
         }
+
+        //Setting bottom view
         binding.bottomSheetVp2.adapter = bottomSheetViewPagerAdapter
         TabLayoutMediator(binding.productTablayout, binding.bottomSheetVp2) { tab, position ->
             when (position) {
@@ -140,7 +153,7 @@ class EntryFragment : BaseMvRxFragment() {
             pos += 1
             if (pos >= count) pos = 0
             binding.topViewpager2.currentItem = pos
-            handler.postDelayed(runnable, 3000)
+            handler.postDelayed(runnable, 5000)
 
         }
 

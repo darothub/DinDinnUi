@@ -10,6 +10,6 @@ import com.darothub.dindinnui.model.ProductObject
 data class ProductState(
     val products: Async<List<ProductObject>> = Uninitialized,
     val product: ProductObject?=null,
-    @PersistState val addProduct:List<ProductObject> = arrayListOf()
+    @PersistState val cartItems:List<ProductObject> = arrayListOf()
 ) : MvRxState{
 }
