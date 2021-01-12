@@ -51,29 +51,36 @@ class CartFragment : BaseMvRxFragment() {
     override fun invalidate() {
         withState(cartViewModel){state->
             binding.cartFragRv.withModels {
-                state.products()?.forEach {ci->
+                state.addProduct.forEach { ci->
                     cartListView {
                         id(ci.id)
                         data(ci)
                         onDeleteListener { _, _, _, position ->
-                            cartViewModel.removeItem(position)
-                            calculateAndUpdate(state.products() as ArrayList<ProductObject>)
+                            cartViewModel.remove(position)
+                            calculateAndUpdate(state.addProduct)
                             requestModelBuild()
                         }
                     }
                 }
+
+
+            }
+            if(state.addProduct.isNotEmpty()){
+                Log.i(title, "items ${state.addProduct}")
+
+                calculateAndUpdate(state.addProduct)
             }
 
         }
-        val cartItems = CartData.cartItems
-        if(cartItems.isNotEmpty()){
-            Log.i(title, "items $cartItems")
-
-            calculateAndUpdate(cartItems)
-        }
+//        val cartItems = CartData.cartItems
+//        if(cartItems.isNotEmpty()){
+//            Log.i(title, "items $cartItems")
+//
+//            calculateAndUpdate(cartItems)
+//        }
     }
 
-    private fun calculateAndUpdate(cartItems: ArrayList<ProductObject>) {
+    private fun calculateAndUpdate(cartItems: List<ProductObject>) {
         val total = cartItems.fold(0) { i, productObject ->
             i + productObject.price.replace("usd", "").toInt()
         }

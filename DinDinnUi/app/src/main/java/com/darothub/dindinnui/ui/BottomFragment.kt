@@ -27,6 +27,7 @@ import com.darothub.dindinnui.data.PizzaData
 import com.darothub.dindinnui.databinding.FragmentBottomBinding
 import com.darothub.dindinnui.extensions.getName
 import com.darothub.dindinnui.model.ProductObject
+import com.darothub.dindinnui.state.ProductState
 import com.darothub.dindinnui.viewmodel.CartViewModel
 import com.darothub.dindinnui.viewmodel.PizzaViewModel
 
@@ -58,10 +59,16 @@ class BottomFragment : BaseMvRxFragment() {
     lateinit var parent: EntryFragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.i(title, "onCreate")
         arguments?.let {
             product = it.getParcelableArrayList(PRODUCT)
         }
-        Log.i(title, "PRODUCT $product")
+
+        cartViewModel.selectSubscribe(ProductState::addProduct){list->
+            Log.i(title, "PRODUCT $list size ${list.size}")
+            parent.binding.mainEntryCartCountTv.text = "${list.size}"
+        }
+
     }
 
     override fun onCreateView(
@@ -75,7 +82,7 @@ class BottomFragment : BaseMvRxFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Log.i(title, "onViewCreated")
         navHostFragment = requireActivity().supportFragmentManager.fragments[0] as NavHostFragment
         parent = navHostFragment.childFragmentManager.primaryNavigationFragment as EntryFragment
 
@@ -85,19 +92,9 @@ class BottomFragment : BaseMvRxFragment() {
                 filterView {
                     id(f.id)
                     data(f)
-
                 }
             }
         }
-
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        parent.binding.mainEntryCartCountTv.text = "${CartData.cartItems.size}"
-    }
-    override fun invalidate() = withState(viewModel){state->
 
         mainFragmentBinding.mainFragRv.withModels {
             product?.forEach {p->
@@ -119,15 +116,24 @@ class BottomFragment : BaseMvRxFragment() {
                     }
 
                     buttonClickListener { _, _, _, position ->
-                        cartViewModel.addItem(p)
-//                        CartData.cartItems.add(p)
-                        parent.binding.mainEntryCv.animation = fadeOut
-                        parent.binding.mainEntryCartCountTv.text = "${CartData.cartItems.size}"
-
+                        cartViewModel.adding(p)
                     }
                 }
             }
         }
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i(title, "onResume")
+    }
+
+    override fun invalidate() = withState(cartViewModel){state->
+        Log.i(title, "invalidate")
+        parent.binding.mainEntryCv.animation = fadeOut
+        parent.binding.mainEntryCartCountTv.text = "${state.addProduct.size}"
     }
     private fun pressedEvent(
         view: Button,

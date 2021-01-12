@@ -3,6 +3,7 @@ package com.darothub.dindinnui.ui
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,11 +17,13 @@ import com.darothub.dindinnui.ViewPagerAdapter
 import com.darothub.dindinnui.adapter.CarouselViewPagerAdapter
 import com.darothub.dindinnui.data.DataList
 import com.darothub.dindinnui.databinding.FragmentEntryBinding
+import com.darothub.dindinnui.extensions.getName
 import com.darothub.dindinnui.extensions.goto
 import com.darothub.dindinnui.extensions.hide
 import com.darothub.dindinnui.extensions.show
 import com.darothub.dindinnui.model.ProductObject
 import com.darothub.dindinnui.state.ProductState
+import com.darothub.dindinnui.viewmodel.CartViewModel
 import com.darothub.dindinnui.viewmodel.DrinkViewModel
 import com.darothub.dindinnui.viewmodel.PizzaViewModel
 import com.darothub.dindinnui.viewmodel.SushiViewModel
@@ -42,13 +45,16 @@ class EntryFragment : BaseMvRxFragment() {
     private val handler by lazy {
         Handler(Looper.getMainLooper())
     }
-
+    private val title by lazy {
+        getName()
+    }
 
     lateinit var binding: FragmentEntryBinding
 
     private val pizzaViewModel: PizzaViewModel by activityViewModel()
     private val sushiViewModel: SushiViewModel by activityViewModel()
     private val drinkViewModel: DrinkViewModel by activityViewModel()
+    private val cartViewModel: CartViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -93,6 +99,10 @@ class EntryFragment : BaseMvRxFragment() {
         addDataToList(pizzaViewModel, fragList)
         addDataToList(sushiViewModel, fragList)
         addDataToList(drinkViewModel, fragList)
+        withState(cartViewModel){state->
+            Log.i(title, "addProduct size ${state.addProduct.size}")
+            binding.mainEntryCartCountTv.text = "${state.addProduct.size}"
+        }
 
         val bottomSheetViewPagerAdapter by lazy {
             val size = fragList.size
