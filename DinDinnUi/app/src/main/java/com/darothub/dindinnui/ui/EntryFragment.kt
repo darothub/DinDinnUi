@@ -71,7 +71,6 @@ class EntryFragment : BaseMvRxFragment() {
 
         }
 
-
         //Capturing scroll offset value
         binding.appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (verticalOffset < -35) {
@@ -145,7 +144,6 @@ class EntryFragment : BaseMvRxFragment() {
             )
         }
     }
-
 
     private fun startAutoSlider(count: Int) {
         runnable = Runnable {
