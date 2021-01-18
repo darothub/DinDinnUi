@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id "androidx.navigation.safeargs.kotlin"
 }
 
 android {
@@ -49,6 +50,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.2'
     testImplementation 'junit:junit:4.13.1'
     testImplementation "android.arch.core:core-testing:1.1.1"
+    implementation "com.airbnb:deeplinkdispatch:$versions.deeplinking"
+    kapt "com.airbnb:deeplinkdispatch-processor:$versions.deeplinking"
 
     testImplementation 'org.mockito:mockito-inline:2.8.47'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

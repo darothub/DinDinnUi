@@ -8,10 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.airbnb.mvrx.BaseMvRxFragment
-import com.airbnb.mvrx.BaseMvRxViewModel
-import com.airbnb.mvrx.activityViewModel
-import com.airbnb.mvrx.withState
+import androidx.navigation.fragment.navArgs
+import com.airbnb.mvrx.*
 import com.darothub.dindinnui.R
 import com.darothub.dindinnui.ViewPagerAdapter
 import com.darothub.dindinnui.adapter.CarouselViewPagerAdapter
@@ -48,7 +46,7 @@ class EntryFragment : BaseMvRxFragment() {
     private val title by lazy {
         getName()
     }
-
+    val a:EntryFragmentArgs by navArgs()
     lateinit var binding: FragmentEntryBinding
 
     private val pizzaViewModel: PizzaViewModel by activityViewModel()
@@ -73,6 +71,7 @@ class EntryFragment : BaseMvRxFragment() {
 
         }
 
+
         //Capturing scroll offset value
         binding.appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (verticalOffset < -35) {
@@ -93,6 +92,7 @@ class EntryFragment : BaseMvRxFragment() {
         binding.mainEntryFab.setOnClickListener {
             goto(R.id.transactionFragment)
         }
+
 
         //Updating cart count state
         withState(cartViewModel){state->
