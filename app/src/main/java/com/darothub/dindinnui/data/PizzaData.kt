@@ -38,12 +38,9 @@ object PizzaData {
             "45usd"
         )
 
-
     )
     val listOfFilter = arrayListOf<FilterData>(
         FilterData(0, "Food"),
         FilterData(1, "Drink")
     )
-
-
 }

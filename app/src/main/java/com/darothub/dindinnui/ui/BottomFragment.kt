@@ -3,8 +3,6 @@ package com.darothub.dindinnui.ui
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -26,10 +24,7 @@ import com.darothub.dindinnui.data.PizzaData
 import com.darothub.dindinnui.databinding.FragmentBottomBinding
 import com.darothub.dindinnui.extensions.getName
 import com.darothub.dindinnui.model.ProductObject
-import com.darothub.dindinnui.state.ProductState
 import com.darothub.dindinnui.viewmodel.CartViewModel
-import com.darothub.dindinnui.viewmodel.PizzaViewModel
-
 
 private const val PRODUCT = "product"
 
@@ -44,27 +39,27 @@ class BottomFragment : BaseMvRxFragment() {
     }
 
     private val cartViewModel: CartViewModel by activityViewModel()
-    private val fadeOut: Animation by lazy{
+    private val fadeOut: Animation by lazy {
         AnimationUtils.loadAnimation(requireContext(), R.anim.fade_out)
     }
     private var product: ArrayList<ProductObject>? = null
 
-    lateinit var mainFragmentBinding:FragmentBottomBinding
+    lateinit var mainFragmentBinding: FragmentBottomBinding
     lateinit var navHostFragment: NavHostFragment
     lateinit var parent: EntryFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.i(title, "onCreate")
-        //Retrieving product
+        // Retrieving product
         arguments?.let {
             product = it.getParcelableArrayList(PRODUCT)
         }
-
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -78,23 +73,22 @@ class BottomFragment : BaseMvRxFragment() {
         navHostFragment = requireActivity().supportFragmentManager.fragments[0] as NavHostFragment
         parent = navHostFragment.childFragmentManager.primaryNavigationFragment as EntryFragment
 
-
-        //Infating filter recycler view
+        // Infating filter recycler view
         mainFragmentBinding.mainFilterFragRv.withModels {
-            PizzaData.listOfFilter.forEach { f->
+            PizzaData.listOfFilter.forEach { f ->
                 filterView {
                     id(f.id)
                     data(f)
                 }
             }
         }
-        //Infating product recycler view
+        // Infating product recycler view
         mainFragmentBinding.mainFragRv.withModels {
-            product?.forEach {p->
+            product?.forEach { p ->
                 productView {
                     id(p.id)
                     data(p)
-                    buttonTouchListener{ view, motionEvent ->
+                    buttonTouchListener { view, motionEvent ->
                         view as Button
                         when (motionEvent.action) {
                             MotionEvent.ACTION_DOWN -> {
@@ -107,25 +101,22 @@ class BottomFragment : BaseMvRxFragment() {
                         }
                         false
                     }
-                    //Listener for adding item to cart
+                    // Listener for adding item to cart
                     buttonClickListener { _, _, _, position ->
                         cartViewModel.adding(p)
                     }
                 }
             }
         }
-
-
     }
 
-
-    override fun invalidate() = withState(cartViewModel){state->
+    override fun invalidate() = withState(cartViewModel) { state ->
         parent.binding.mainEntryCv.animation = fadeOut
         parent.binding.mainEntryCartCountTv.text = "${state.cartItems.size}"
     }
     private fun pressedEvent(
         view: Button,
-        color:Int,
+        color: Int,
         p: String
     ): Boolean {
         view.apply {

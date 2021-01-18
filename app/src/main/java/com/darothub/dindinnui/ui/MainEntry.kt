@@ -11,13 +11,12 @@ import com.airbnb.deeplinkdispatch.DeepLinkHandler
 import com.airbnb.deeplinkdispatch.DeepLinkModule
 import com.darothub.dindinnui.databinding.ActivityMainEntryBinding
 
-
 @DeepLinkHandler(*[AppDeepLinkModule::class, LibraryDeepLinkModule::class ])
 class MainEntry : AppCompatActivity() {
     lateinit var binding: ActivityMainEntryBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //Make full screen with status bar visible
+        // Make full screen with status bar visible
         window.apply {
             clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -35,20 +34,13 @@ class MainEntry : AppCompatActivity() {
             // Do something with idString
             Log.i("Main", "$idString")
         }
-
-
     }
-
-
 }
-
 
 /** This will generate a AppDeepLinkModuleRegistry class */
 @DeepLinkModule
-class AppDeepLinkModule {
-}
+class AppDeepLinkModule
 
 /** This will generate a LibraryDeepLinkModuleRegistry class */
 @DeepLinkModule
-class LibraryDeepLinkModule {
-}
+class LibraryDeepLinkModule

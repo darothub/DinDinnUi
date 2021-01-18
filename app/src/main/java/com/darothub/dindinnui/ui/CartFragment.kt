@@ -1,11 +1,10 @@
 package com.darothub.dindinnui.ui
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.airbnb.mvrx.BaseMvRxFragment
 import com.airbnb.mvrx.activityViewModel
 import com.airbnb.mvrx.withState
@@ -27,10 +26,10 @@ class CartFragment : BaseMvRxFragment() {
         getName()
     }
 
-
     private val cartViewModel: CartViewModel by activityViewModel()
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -40,14 +39,14 @@ class CartFragment : BaseMvRxFragment() {
 
     override fun invalidate() {
 
-        withState(cartViewModel){state->
+        withState(cartViewModel) { state ->
             binding.cartFragRv.withModels {
-                state.cartItems.forEach { ci->
+                state.cartItems.forEach { ci ->
                     cartListView {
                         id(ci.id)
                         data(ci)
 
-                        //Listener for removing items in the cart
+                        // Listener for removing items in the cart
                         onDeleteListener { _, _, _, position ->
                             cartViewModel.remove(position)
                             calculateAndUpdate(state.cartItems)
@@ -55,13 +54,10 @@ class CartFragment : BaseMvRxFragment() {
                         }
                     }
                 }
-
-
             }
-            if(state.cartItems.isNotEmpty()){
+            if (state.cartItems.isNotEmpty()) {
                 calculateAndUpdate(state.cartItems)
             }
-
         }
     }
 
@@ -71,5 +67,4 @@ class CartFragment : BaseMvRxFragment() {
         }
         binding.totalTv.text = "${total}usd"
     }
-
 }

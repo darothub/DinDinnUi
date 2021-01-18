@@ -4,7 +4,7 @@ import com.darothub.dindinnui.model.FilterData
 import com.darothub.dindinnui.model.ProductObject
 
 object DrinkData {
-    val listOfDrinks= arrayListOf(
+    val listOfDrinks = arrayListOf(
         ProductObject(
             0,
             "https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/publications/food-beverage-nutrition/beveragedaily.com/news/markets/zero-alcohol-drinks-the-european-picture/10873182-4-eng-GB/Zero-alcohol-drinks-The-European-picture.jpg",
@@ -38,11 +38,9 @@ object DrinkData {
             "45usd"
         )
 
-
     )
     val listOfFilter = arrayListOf<FilterData>(
         FilterData(0, "Food"),
         FilterData(1, "Drink")
     )
-
 }

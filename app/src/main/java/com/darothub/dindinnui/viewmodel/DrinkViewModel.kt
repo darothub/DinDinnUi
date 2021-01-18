@@ -7,12 +7,11 @@ import com.darothub.dindinnui.repository.Repository
 import com.darothub.dindinnui.state.ProductState
 import io.reactivex.schedulers.Schedulers.io
 
-
 @SuppressLint("CheckResult")
 class DrinkViewModel(
-    state:ProductState,
+    state: ProductState,
     productNetworkService: Repository
-): BaseMvRxViewModel<ProductState>(state, debugMode = true){
+) : BaseMvRxViewModel<ProductState>(state, debugMode = true) {
 
     init {
         productNetworkService.getDrinks()
@@ -20,7 +19,7 @@ class DrinkViewModel(
             .execute { copy(products = it) }
     }
 
-    companion object : MvRxViewModelFactory<DrinkViewModel, ProductState>{
+    companion object : MvRxViewModelFactory<DrinkViewModel, ProductState> {
         override fun create(
             viewModelContext: ViewModelContext,
             state: ProductState
@@ -28,6 +27,5 @@ class DrinkViewModel(
             val productNetworkService = viewModelContext.app<DinDinnApp>().pizzaService
             return DrinkViewModel(state, productNetworkService)
         }
-
     }
 }
