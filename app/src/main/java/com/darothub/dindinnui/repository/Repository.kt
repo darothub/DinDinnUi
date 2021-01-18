@@ -9,6 +9,7 @@ import io.reactivex.Single
 
 class Repository : PizzaServices, SushiServices, DrinkServices, CartServices {
 
+    //Get Pizza
     override fun getPizzas(): Single<List<ProductObject>> = Single.fromCallable {
         Thread.sleep(2000)
         PizzaData.listOfPizza
