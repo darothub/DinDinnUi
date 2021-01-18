@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/reusable_appbar_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+    android:fitsSystemWindows="true"
+    app:navigationIcon="@drawable/arrow_back_ios_24"
+    app:contentInsetLeft="0dp"
+    app:contentInsetStart="0dp"
+    android:gravity="center"
+    app:contentInsetStartWithNavigation="0dp"
+    app:title="@string/dash" />
+
