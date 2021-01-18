@@ -137,6 +137,7 @@ class EntryFragment : BaseMvRxFragment() {
     }
 
     private fun addDataToList(viewModel: BaseMvRxViewModel<ProductState>,fragList: ArrayList<Fragment>) {
+        //Test comment
         withState(viewModel) { state ->
             fragList.add(
                 BottomFragment.newInstance(
@@ -148,6 +149,7 @@ class EntryFragment : BaseMvRxFragment() {
 
 
     private fun startAutoSlider(count: Int) {
+        //Runnable
         runnable = Runnable {
             var pos: Int = binding.topViewpager2.currentItem
             pos += 1
