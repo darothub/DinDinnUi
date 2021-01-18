@@ -7,7 +7,6 @@ import com.darothub.dindinnui.data.SushiData
 import com.darothub.dindinnui.model.ProductObject
 import io.reactivex.Single
 
-
 class Repository : PizzaServices, SushiServices, DrinkServices, CartServices {
 
     override fun getPizzas(): Single<List<ProductObject>> = Single.fromCallable {
@@ -39,18 +38,17 @@ class Repository : PizzaServices, SushiServices, DrinkServices, CartServices {
         DrinkData.listOfDrinks[id.toInt()]
     }
 
-    override fun addToCart(productObject: ProductObject){
+    override fun addToCart(productObject: ProductObject) {
         Thread.sleep(300)
         CartData.cartItems.add(productObject)
     }
-
 
     override fun getCart(): Single<List<ProductObject>> = Single.fromCallable {
         Thread.sleep(2000)
         CartData.cartItems
     }
 
-    override fun removeItemFromCart(id: Int): List<ProductObject>  {
+    override fun removeItemFromCart(id: Int): List<ProductObject> {
         Thread.sleep(300)
         CartData.cartItems.removeAt(id)
         return CartData.cartItems

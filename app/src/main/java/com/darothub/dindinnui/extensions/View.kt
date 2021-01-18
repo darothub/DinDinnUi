@@ -6,8 +6,8 @@ import android.view.View
  * Hide view
  *
  */
-fun View.hide():Boolean{
-    if(this.visibility == View.VISIBLE || this.visibility == View.INVISIBLE){
+fun View.hide(): Boolean {
+    if (this.visibility == View.VISIBLE || this.visibility == View.INVISIBLE) {
         this.visibility = View.GONE
         return false
     }
@@ -18,8 +18,8 @@ fun View.hide():Boolean{
  * Show view
  *
  */
-fun View.show():Boolean{
-    if(this.visibility == View.INVISIBLE || this.visibility == View.GONE){
+fun View.show(): Boolean {
+    if (this.visibility == View.INVISIBLE || this.visibility == View.GONE) {
         this.visibility = View.VISIBLE
         return false
     }
@@ -29,8 +29,8 @@ fun View.show():Boolean{
  * Invisible view
  *
  */
-fun View.invisible():Boolean{
-    if(this.visibility == View.VISIBLE || this.visibility == View.GONE){
+fun View.invisible(): Boolean {
+    if (this.visibility == View.VISIBLE || this.visibility == View.GONE) {
         this.visibility = View.INVISIBLE
         return false
     }

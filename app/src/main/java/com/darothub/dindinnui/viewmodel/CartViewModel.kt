@@ -8,12 +8,11 @@ import com.darothub.dindinnui.repository.Repository
 import com.darothub.dindinnui.state.ProductState
 import io.reactivex.schedulers.Schedulers.io
 
-
 @SuppressLint("CheckResult")
 class CartViewModel(
-    state:ProductState,
+    state: ProductState,
     private val repository: Repository
-): BaseMvRxViewModel<ProductState>(state, debugMode = true){
+) : BaseMvRxViewModel<ProductState>(state, debugMode = true) {
 
     init {
         repository.getCart()
@@ -21,23 +20,21 @@ class CartViewModel(
             .execute { copy(products = it) }
     }
 
-    fun removeItem(id:Int){
+    fun removeItem(id: Int) {
         repository.removeItemFromCart(id)
-
     }
-    fun remove(id: Int){
+    fun remove(id: Int) {
         setState { copy(cartItems = cartItems.dropLast(1)) }
     }
-    fun addItem(productObject: ProductObject){
+    fun addItem(productObject: ProductObject) {
         repository.addToCart(productObject)
-
     }
 
-    fun adding(productObject: ProductObject){
+    fun adding(productObject: ProductObject) {
         setState { copy(cartItems = arrayListOf(productObject) + cartItems) }
     }
 
-    companion object : MvRxViewModelFactory<CartViewModel, ProductState>{
+    companion object : MvRxViewModelFactory<CartViewModel, ProductState> {
         override fun create(
             viewModelContext: ViewModelContext,
             state: ProductState
@@ -45,6 +42,5 @@ class CartViewModel(
             val productNetworkService = viewModelContext.app<DinDinnApp>().pizzaService
             return CartViewModel(state, productNetworkService)
         }
-
     }
 }

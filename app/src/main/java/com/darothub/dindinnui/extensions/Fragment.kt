@@ -3,7 +3,6 @@ package com.darothub.dindinnui.extensions
 import android.net.Uri
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
@@ -42,17 +41,19 @@ fun Fragment.goto(destinationId: Int) {
     findNavController().navigate(destinationId)
 }
 
-fun Fragment.onBackDispatcher(action: () -> Unit){
-    requireActivity().onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            // in here you can do logic when backPress is clicked
-            action()
-
+fun Fragment.onBackDispatcher(action: () -> Unit) {
+    requireActivity().onBackPressedDispatcher?.addCallback(
+        viewLifecycleOwner,
+        object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // in here you can do logic when backPress is clicked
+                action()
+            }
         }
-    })
+    )
 }
 
-fun Fragment.pop(){
+fun Fragment.pop() {
     findNavController().popBackStack()
 }
 

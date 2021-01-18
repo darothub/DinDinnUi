@@ -3,7 +3,6 @@ package com.darothub.dindinnui.model
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-
 @Parcelize
 data class ProductObject(
     val id: Long,

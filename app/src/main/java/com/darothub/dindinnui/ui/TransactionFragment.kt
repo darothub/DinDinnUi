@@ -15,7 +15,6 @@ import com.darothub.dindinnui.extensions.pop
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 
-
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -29,7 +28,7 @@ private const val ARG_PARAM2 = "param2"
 class TransactionFragment : Fragment() {
 
     lateinit var binding: FragmentTransactionBinding
-    private val fadeOut: Animation by lazy{
+    private val fadeOut: Animation by lazy {
         AnimationUtils.loadAnimation(requireContext(), R.anim.fade_out)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +36,8 @@ class TransactionFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -48,12 +48,12 @@ class TransactionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //On back pressed
-        onBackDispatcher{
+        // On back pressed
+        onBackDispatcher {
             pop()
         }
 
-        //Fragment list for viewpager
+        // Fragment list for viewpager
         val fragList by lazy {
             arrayListOf(
                 CartFragment(),
@@ -82,11 +82,10 @@ class TransactionFragment : Fragment() {
             attach()
         }
 
-        //On back arrow click listener
+        // On back arrow click listener
         binding.transactionToolbar.reusableAppbarToolbar.setNavigationOnClickListener {
             pop()
         }
-
 
         binding.transactionFab.setOnClickListener {
             binding.transactionFab.animation = fadeOut
@@ -95,6 +94,4 @@ class TransactionFragment : Fragment() {
             snackbar.show()
         }
     }
-
-
 }
