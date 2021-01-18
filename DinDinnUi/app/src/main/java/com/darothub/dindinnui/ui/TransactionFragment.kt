@@ -87,6 +87,7 @@ class TransactionFragment : Fragment() {
             pop()
         }
 
+
         binding.transactionFab.setOnClickListener {
             binding.transactionFab.animation = fadeOut
             val snackbar = Snackbar

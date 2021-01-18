@@ -1,25 +1,18 @@
 package com.darothub.dindinnui.ui
 
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.viewpager2.widget.ViewPager2
-import com.darothub.dindinnui.adapter.CarouselViewPagerAdapter
-import com.darothub.dindinnui.data.DataList
+import com.airbnb.deeplinkdispatch.DeepLink
+import com.airbnb.deeplinkdispatch.DeepLinkHandler
+import com.airbnb.deeplinkdispatch.DeepLinkModule
 import com.darothub.dindinnui.databinding.ActivityMainEntryBinding
-import com.darothub.dindinnui.extensions.hide
-import com.darothub.dindinnui.extensions.show
-import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
-import com.google.android.material.tabs.TabLayoutMediator
 
 
+@DeepLinkHandler(*[AppDeepLinkModule::class, LibraryDeepLinkModule::class ])
 class MainEntry : AppCompatActivity() {
     lateinit var binding: ActivityMainEntryBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +28,27 @@ class MainEntry : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        val intent = intent
+        if (intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false)) {
+            val parameters = intent.extras
+            val idString = parameters!!.getString("id")
+            // Do something with idString
+            Log.i("Main", "$idString")
+        }
+
 
     }
 
 
+}
+
+
+/** This will generate a AppDeepLinkModuleRegistry class */
+@DeepLinkModule
+class AppDeepLinkModule {
+}
+
+/** This will generate a LibraryDeepLinkModuleRegistry class */
+@DeepLinkModule
+class LibraryDeepLinkModule {
 }
