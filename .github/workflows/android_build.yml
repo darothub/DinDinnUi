@@ -3,7 +3,7 @@ name: Android Build
 on: pull_request
 
 jobs:
-  Restore Cache:
+  restore_cache:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,7 +19,7 @@ jobs:
           restore-keys: |
             ${{runner.os}}-gradle-
 
-  Set Up JDK:
+  set_up_jdk:
     runs-on: ubuntu-latest
     steps:
       - name: Set Up JDK
@@ -27,20 +27,20 @@ jobs:
         with:
           java-version: 1.8
 
-  Run Test:
+  run_test:
     runs-on: ubuntu-latest
     steps:
       - name: Run test
         run: ./gradlew test
 
-  Assemble:
+  assemble:
     runs-on: ubuntu-latest
     steps:
       - name: Build project
         run: ./gradlew assemble
 
 
-  Upload Debug Apk:
+  upload_debug_apk:
     runs-on: ubuntu-latest
     steps:
       - name: Upload Apk
@@ -49,7 +49,7 @@ jobs:
           name: apk
           path: app/build/outputs/apk/debug/**.apk
 
-  Code Coverage:
+  code_coverage:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
