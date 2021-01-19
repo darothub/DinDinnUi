@@ -3,8 +3,7 @@ name: Android Build
 on: pull_request
 
 jobs:
-  build:
-
+  Restore Cache:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,21 +19,45 @@ jobs:
           restore-keys: |
             ${{runner.os}}-gradle-
 
+  Set Up JDK:
+    runs-on: ubuntu-latest
+    steps:
       - name: Set Up JDK
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
 
+  Run Test:
+    runs-on: ubuntu-latest
+    steps:
       - name: Run test
         run: ./gradlew test
 
+  Assemble:
+    runs-on: ubuntu-latest
+    steps:
       - name: Build project
         run: ./gradlew assemble
 
+
+  Upload Debug Apk:
+    runs-on: ubuntu-latest
+    steps:
       - name: Upload Apk
         uses: actions/upload-artifact@v2
           with:
             name: apk
             path: app/build/outputs/apk/debug/**.apk
+
+  Code Coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: codecov/codecov-action@v1
+        with:
+          flags: unittests # optional
+          name: codecov-umbrella # optional
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true
 
 
