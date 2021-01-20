@@ -26,42 +26,26 @@ jobs:
 
 
   set_up_jdk:
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v1
-
       - name: Set Up JDK
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
+
   build:
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v1
-
-      - name: Restore Cache
-          uses: actions/cache@v2
-          with:
-            path: |
-              ~/.gradle/caches
-              ~/.gradle/wrapper
-            key: ${{runner.os}}-gradle-${{ hashFiles('**/*.gradle*')}}
-            restore-keys: |
-              ${{runner.os}}-gradle-
 
       - name: Build project
         run: ./gradlew assemble
 
   upload_apk:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v1
-
       - name: Upload Apk
         uses: actions/upload-artifact@v2
         with:
